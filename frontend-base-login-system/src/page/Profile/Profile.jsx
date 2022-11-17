@@ -1,14 +1,14 @@
-import React from 'react'
-import { Container } from 'react-bootstrap'
+import React from "react";
+import { Container } from "react-bootstrap";
+import useAuth from "../../hooks/useAuth";
 
 function Profile() {
+  const { auth } = useAuth();
   return (
     <div>
-        <Container>
-            Profile Protected route
-        </Container>
+      <Container>{auth.id}</Container>
     </div>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

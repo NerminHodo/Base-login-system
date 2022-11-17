@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button, Form } from "react-bootstrap";
-import { createAccount } from "../../API";
 import { useNavigate } from "react-router-dom";
+import axios from "../../API/axios";
+const REGISTER_URL = "/api/users/register";
 
 export default function Registration() {
   const [validated, setValidated] = useState(false);
@@ -25,20 +26,32 @@ export default function Registration() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const form = e.currentTarget;
+    e.preventDefault();
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
     }
     if (form.checkValidity() === true) {
-      createAccount(
-        { name: name, email: email, password: password },
-        setResponse
-      );
+      try {
+        const response = await axios.post(
+          REGISTER_URL,
+          JSON.stringify({ name, email, password }),
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        setResponse(response);
+        setName("");
+        setEmail("");
+        setPassword("");
+        navigate("/dashboard");
+      } catch (error) {
+        setResponse(error.response);
+        console.log(error);
+      }
     }
     setValidated(true);
-    e.preventDefault();
   };
 
   const handleNameChange = (e) => {

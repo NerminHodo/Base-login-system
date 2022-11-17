@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 function About() {
   return (
     <div>
-      <Container>About Protected route</Container>
+      <Container>About Page</Container>
     </div>
   );
 }

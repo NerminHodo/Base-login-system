@@ -1,36 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../API";
+import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../API/axios";
+const LOGIN_URL = "/auth/login";
 
 function Login() {
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const [validated, setValidated] = useState(false);
-  const [response, setResponse] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    if (response.status === 400) {
-      console.log("400");
-    } else if (response.status === 200) {
-      navigate("/dashboard");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const form = e.currentTarget;
+    e.preventDefault();
+
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
     }
+
     if (form.checkValidity() === true) {
-      login({ email: email, password: password }, setResponse);
+      try {
+        const response = await axios.post(
+          LOGIN_URL,
+          JSON.stringify({ email, password }),
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const accessToken = response?.data?.token;
+        const id = response?.data?.user._id;
+        const name = response?.data?.user.name;
+        setAuth({ id, name, email, accessToken });
+        setEmail("");
+        setPassword("");
+        navigate(from, { replace: true });
+      } catch (error) {
+        console.log(error);
+      }
     }
     setValidated(true);
-    e.preventDefault();
   };
 
   const handleEmailChange = (e) => {

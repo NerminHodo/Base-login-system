@@ -16,13 +16,25 @@ const signIn = (req, res) => {
     }
 
     const token = Jwt.sign(
-      { _id: user._id, name: user.name, email: user.email },
+      {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        created: user.created,
+        updated: user.updated,
+      },
       config.secret
     );
     res.cookie("token", token, { expire: new Date() + 999 });
     res.status(200).json({
       token,
-      user: { _id: user._id, name: user.name, email: user.email },
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        created: user.created,
+        updated: user.updated,
+      },
     });
   });
 };

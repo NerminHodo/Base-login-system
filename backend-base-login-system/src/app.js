@@ -2,6 +2,7 @@ import express from "express";
 import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import template from "./template";
 import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(compress());
 app.use(helmet());
 app.use(cors());
+app.use(cookieParser());
 app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use((err, req, res, next) => {

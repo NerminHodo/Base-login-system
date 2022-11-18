@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   function getData() {
-    if (Cookies.get("token")) {
+    if (Cookies.get("token")!=="undefined") {
       const token = jwtDecode(Cookies.get("token"));
 
       const accessToken = Cookies.get("token");

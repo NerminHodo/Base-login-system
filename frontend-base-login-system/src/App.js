@@ -4,6 +4,7 @@ import Login from "./page/Login/Login";
 import Registration from "./page/Registration/Registration";
 import Dashboard from "./page/Dashboard/Dashboard";
 import Profile from "./page/Profile/Profile";
+import EditProfile from "./page/Profile/EditProfile";
 import About from "./page/About/About";
 import Navbar from "./components/Navbar/Navbar";
 import Layout from "./components/Layout";
@@ -26,6 +27,7 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/editprofile" element={<EditProfile />} />
           </Route>
           <Route path="/*" element={<NotFound404 />} />
         </Route>

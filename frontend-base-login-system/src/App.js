@@ -7,8 +7,9 @@ import Profile from "./page/Profile/Profile";
 import About from "./page/About/About";
 import Navbar from "./components/Navbar/Navbar";
 import Layout from "./components/Layout";
-import "bootstrap/dist/css/bootstrap.min.css";
+import NotFound404 from "./page/404 NotFound/NotFound404";
 import RequireAuth from "./components/RequireAuth";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -16,17 +17,17 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
-          
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-          <Route path="About" element={<About />} />
+          <Route path="/about" element={<About />} />
 
           <Route element={<RequireAuth />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
+          <Route path="/*" element={<NotFound404 />} />
         </Route>
       </Routes>
     </div>

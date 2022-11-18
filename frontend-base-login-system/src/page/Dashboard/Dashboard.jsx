@@ -1,14 +1,12 @@
-import React from 'react'
-import { Container } from 'react-bootstrap'
+import React from "react";
+import { Container } from "react-bootstrap";
 
 function Dashboard() {
   return (
     <div>
-      <Container>
-        Dashboard Protected route
-      </Container>
+      <Container>Dashboard Protected route</Container>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

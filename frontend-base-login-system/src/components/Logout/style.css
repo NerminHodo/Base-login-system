@@ -1,0 +1,14 @@
+.logout{
+    color: white;
+    display: flex;
+    align-items: baseline;
+    border: 1px solid white;
+    padding: 0 10px;
+    margin: 0;
+}
+.par{
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: default;
+    user-select: none;
+}

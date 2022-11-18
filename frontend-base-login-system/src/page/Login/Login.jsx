@@ -3,6 +3,8 @@ import { Container, Button, Form } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../API/axios";
+import Cookies from "js-cookie";
+
 const LOGIN_URL = "/auth/login";
 
 function Login() {
@@ -31,12 +33,18 @@ function Login() {
           JSON.stringify({ email, password }),
           {
             headers: { "Content-Type": "application/json" },
+            // withCredentials: true
           }
         );
         const accessToken = response?.data?.token;
         const id = response?.data?.user._id;
         const name = response?.data?.user.name;
-        setAuth({ id, name, email, accessToken });
+        const created = response?.data?.user.created;
+        const updated = response?.data?.user.updated;
+        setAuth({ id, name, email, accessToken, created, updated });
+        Cookies.set("token", accessToken, {
+          expires: new Date(new Date().getTime() + 15 * 60 * 1000),
+        });
         setEmail("");
         setPassword("");
         navigate(from, { replace: true });

@@ -3,7 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Navbar.css";
 import useAuth from "../../hooks/useAuth";
-import Logout from "../Logout";
+import Logout from "../Logout/Logout";
 
 function Navigation() {
   const { auth } = useAuth();
@@ -35,7 +35,9 @@ function Navigation() {
                 <LinkContainer to="/profile">
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
-                <Logout/>
+                <div>
+                  <Logout />
+                </div>
               </div>
             ) : (
               <Container />

@@ -1,0 +1,17 @@
+.mainDiv {
+  display: flex;
+  justify-content: space-between;
+}
+.leftDiv {
+  border: 1px solid red;
+  width: 100%;
+  padding: 1%;
+}
+.rightDiv {
+  border: 1px solid red;
+  width: 100%;
+  padding: 1%;
+
+}
+
+
